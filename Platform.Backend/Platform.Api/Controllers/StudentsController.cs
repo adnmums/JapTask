@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Student;
 using Platform.Services;
@@ -16,30 +17,35 @@ namespace Platform.Api.Controllers
             this.studentsService = studentsService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateStudentDto newStudent)
         {
             return Ok(await studentsService.Create(newStudent));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             return Ok(await studentsService.Delete(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] StudentParameters studentParameters)
         {
             return Ok(await studentsService.GetAll(studentParameters));
         }
 
+        [Authorize(Roles = "Student")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             return Ok(await studentsService.GetById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, UpdateStudentDto updatedStudent)
         {

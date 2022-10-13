@@ -11,6 +11,7 @@ namespace Platform.Api.Extensions
             service.AddScoped<IProgramsService, ProgramsService>();
             service.AddScoped<ISelectionsService, SelectionsService>();
             service.AddScoped<ICommentsService, CommentsService>();
+            service.AddScoped<IAuthService, AuthService>();
         }
     }
 }
