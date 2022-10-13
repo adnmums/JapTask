@@ -7,6 +7,7 @@
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public SelectionStatus Status { get; set; }
+        public Guid ProgramId { get; set; }
         public SProgram? Program { get; set; }
         public List<Student> Students { get; set; } = new List<Student>();
     }

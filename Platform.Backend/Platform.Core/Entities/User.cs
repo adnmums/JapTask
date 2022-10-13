@@ -1,9 +1,12 @@
-﻿namespace Platform.Core.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Platform.Core.Entities
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public Guid Id { get; set; }
-        public string Username { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public DateTime? BirthDate { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

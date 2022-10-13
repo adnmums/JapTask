@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Platform.Api.Extensions;
 using Platform.Api.Middlewares;
-using Platform.Core.Interfaces;
+using Platform.Core.Entities;
 using Platform.Database;
-using Platform.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,15 @@ builder.Services.AddDbContextPool<PlatformDbContext>(options =>
 builder.Services.RegisterServices();
 
 builder.Services.RegisterAutomapperProfiles();
+
+builder.Services.AddIdentityCore<User>()
+    .AddRoles<Role>()
+    .AddRoleManager<RoleManager<Role>>()
+    .AddSignInManager<SignInManager<User>>()
+    .AddRoleValidator<RoleValidator<Role>>()
+    .AddEntityFrameworkStores<PlatformDbContext>();
+
+builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
 
 var app = builder.Build();
 

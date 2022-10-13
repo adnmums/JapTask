@@ -9,6 +9,6 @@
         public DateTime BirthDate { get; set; }
         public StudentStatus Status { get; set; }
         public Selection? Selection { get; set; }
-        public List<Comment>? Comments { get; set; }
+        public virtual List<Comment>? Comments { get; set; }
     }
 }
