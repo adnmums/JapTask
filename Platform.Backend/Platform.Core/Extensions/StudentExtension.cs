@@ -1,9 +1,4 @@
 ﻿using Platform.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Platform.Core.Extensions
 {
@@ -16,7 +11,9 @@ namespace Platform.Core.Extensions
 
             var lowerCaseTerm = searchTerm.Trim().ToLower();
 
-            return students.Where(s => s.FirstName.ToLower().Contains(lowerCaseTerm));
+            return students.Where(s => 
+            s.FirstName.ToLower().Contains(lowerCaseTerm)
+            || s.LastName.ToLower().Contains(lowerCaseTerm));
         }
     }
 }

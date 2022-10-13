@@ -5,11 +5,6 @@ using Platform.Core.Extensions;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Student;
 using Platform.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Platform.Services
 {

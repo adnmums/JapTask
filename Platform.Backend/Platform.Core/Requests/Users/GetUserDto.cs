@@ -1,4 +1,4 @@
-﻿namespace Platform.Core.Requests.User
+﻿namespace Platform.Core.Requests.Users
 {
     public class GetUserDto
     {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Platform.Core.Requests.Comment
+﻿namespace Platform.Core.Requests.Comment
 {
     public class CreateCommentDto
     {

@@ -4,11 +4,6 @@ using Platform.Core.Entities;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Program;
 using Platform.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Platform.Services
 {
