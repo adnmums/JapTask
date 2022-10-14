@@ -10,6 +10,9 @@ namespace Platform.Api.Extensions
             service.AddAutoMapper(typeof(StudentProfile));
             service.AddAutoMapper(typeof(CommentProfile));
             service.AddAutoMapper(typeof(SelectionProfile));
+            service.AddAutoMapper(typeof(UserProfile));
+            service.AddAutoMapper(typeof(UserRoleProfile));
+            service.AddAutoMapper(typeof(RoleProfile));
         }
     }
 }

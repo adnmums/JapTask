@@ -12,6 +12,6 @@ namespace Platform.Core.Requests.Selection
         public DateTime EndDate { get; set; }
         public SelectionStatus Status { get; set; }
         public ProgramDto? Program { get; set; }
-        public List<SingleStudentDto> Students { get; set; } = new List<SingleStudentDto>();
+        public List<StudentDto> Students { get; set; } = new List<StudentDto>();
     }
 }

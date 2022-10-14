@@ -40,14 +40,10 @@ namespace Platform.Services
             .FirstOrDefaultAsync(s => s.Id == createStudent.SelectionId);
 
             //koristiti mapper?
-            Student student = new Student();
+           
+            var student = mapper.Map<Student>(createStudent);
+            
             student.UserName = createStudent.UserName.ToLower().Trim();
-            student.FirstName = createStudent.FirstName;
-            student.LastName = createStudent.LastName;
-            student.Email = createStudent.Email;
-            student.BirthDate = createStudent.BirthDate;
-            student.Status = createStudent.Status;
-            student.Selection = selection;
 
             var result = await userManager.CreateAsync(student, createStudent.Password);
 
@@ -62,13 +58,18 @@ namespace Platform.Services
             
             var email = await mailService.SendEmail(student.Email, EmailTemplate.Subject, template);
 
+            if (!email)
+            {
+                throw new KeyNotFoundException("Email not sent");
+            }
+
             return new ServiceResponse<List<StudentDto>>()
             {
                 Data = await context.Students
                 .Include(s => s.Selection)
                 .ThenInclude(s => s.Program)
                 .Include(c => c.Comments)
-                .Select(s => mapper.Map<StudentDto>(s)).ToListAsync() 
+                .Select(s => mapper.Map<StudentDto>(s)).ToListAsync()
             };
         }
 

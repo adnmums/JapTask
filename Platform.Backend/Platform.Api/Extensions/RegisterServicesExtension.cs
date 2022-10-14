@@ -12,7 +12,7 @@ namespace Platform.Api.Extensions
             service.AddScoped<ISelectionsService, SelectionsService>();
             service.AddScoped<ICommentsService, CommentsService>();
             service.AddScoped<IAuthService, AuthService>();
-            service.AddScoped<IMailService, MailService>();
+            service.AddTransient<IMailService, MailService>();
         }
     }
 }

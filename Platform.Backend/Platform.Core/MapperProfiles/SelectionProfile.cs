@@ -8,8 +8,7 @@ namespace Platform.Core.MapperProfiles
     {
         public SelectionProfile()
         {
-            CreateMap<Selection, SelectionDto>();
-            CreateMap<Selection, SingleSelectionDto>();
+            CreateMap<Selection, SelectionDto>();    
             CreateMap<CreateSelectionDto, Selection>();
         }
     }

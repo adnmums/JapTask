@@ -12,8 +12,8 @@ using Platform.Database;
 namespace Platform.Database.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    [Migration("20221012160209_Initial")]
-    partial class Initial
+    [Migration("20221014090618_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -128,8 +128,8 @@ namespace Platform.Database.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -173,14 +173,14 @@ namespace Platform.Database.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "d67b154d-4d2a-4e1d-9f2e-bf0e78b0adfc",
+                            ConcurrencyStamp = "d898d5e0-8346-43c0-aa94-83f52a1d63f4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "3b7423e0-0847-4d93-bc3a-220818bd1651",
+                            ConcurrencyStamp = "86d84cdd-7c4b-476d-a595-831c4a4e9139",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -265,36 +265,6 @@ namespace Platform.Database.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Platform.Core.Entities.Student", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("SelectionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SelectionId");
-
-                    b.ToTable("Students");
-                });
-
             modelBuilder.Entity("Platform.Core.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -311,6 +281,10 @@ namespace Platform.Database.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -373,17 +347,19 @@ namespace Platform.Database.Migrations
 
                     b.ToTable("AspNetUsers", (string)null);
 
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d981a9e0-058d-4e7e-8bb6-2972564fdbcc",
+                            ConcurrencyStamp = "8ea5110d-6642-47e1-a781-7621df1133a7",
                             EmailConfirmed = false,
                             FirstName = "Johnny",
                             LastName = "Cash",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEH55JuXJApkP7CtAwJhzwEvfS+hQC/vNDSC7J+3SId+AkEm/b1hwqwlTu7uzj/Lj7g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEky1IrFUNKqAYnRavmzgYeFGeJ4oY3T5V+PUdkMTTXFp0Ppo0ao8wMGWK873OL9OQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -410,6 +386,21 @@ namespace Platform.Database.Migrations
                             UserId = 1,
                             RoleId = 1
                         });
+                });
+
+            modelBuilder.Entity("Platform.Core.Entities.Student", b =>
+                {
+                    b.HasBaseType("Platform.Core.Entities.User");
+
+                    b.Property<Guid?>("SelectionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasIndex("SelectionId");
+
+                    b.HasDiscriminator().HasValue("Student");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -474,15 +465,6 @@ namespace Platform.Database.Migrations
                     b.Navigation("Program");
                 });
 
-            modelBuilder.Entity("Platform.Core.Entities.Student", b =>
-                {
-                    b.HasOne("Platform.Core.Entities.Selection", "Selection")
-                        .WithMany("Students")
-                        .HasForeignKey("SelectionId");
-
-                    b.Navigation("Selection");
-                });
-
             modelBuilder.Entity("Platform.Core.Entities.UserRole", b =>
                 {
                     b.HasOne("Platform.Core.Entities.Role", "Role")
@@ -502,6 +484,15 @@ namespace Platform.Database.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Platform.Core.Entities.Student", b =>
+                {
+                    b.HasOne("Platform.Core.Entities.Selection", "Selection")
+                        .WithMany("Students")
+                        .HasForeignKey("SelectionId");
+
+                    b.Navigation("Selection");
+                });
+
             modelBuilder.Entity("Platform.Core.Entities.Role", b =>
                 {
                     b.Navigation("UserRoles");
@@ -517,14 +508,14 @@ namespace Platform.Database.Migrations
                     b.Navigation("Selections");
                 });
 
-            modelBuilder.Entity("Platform.Core.Entities.Student", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
             modelBuilder.Entity("Platform.Core.Entities.User", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Platform.Core.Entities.Student", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

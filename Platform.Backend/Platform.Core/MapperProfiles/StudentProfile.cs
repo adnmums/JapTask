@@ -8,8 +8,7 @@ namespace Platform.Core.MapperProfiles
     {
         public StudentProfile()
         {
-            CreateMap<Student, StudentDto>();
-            CreateMap<Student, SingleStudentDto>();
+            CreateMap<Student, StudentDto>().ReverseMap();         
             CreateMap<CreateStudentDto, Student>();
         }
     }

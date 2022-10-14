@@ -12,11 +12,11 @@ namespace Platform.Core
         public AutoMapperProfile()
         {
             CreateMap<Student, StudentDto>();
-            CreateMap<Student, SingleStudentDto>();
+            
             CreateMap<CreateStudentDto, Student>();
             CreateMap<SProgram, ProgramDto>();
             CreateMap<Selection, SelectionDto>();
-            CreateMap<Selection, SingleSelectionDto>();
+          
             CreateMap<CreateSelectionDto, Selection>();
             CreateMap<Comment, CommentDto>();
         }

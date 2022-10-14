@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Student;
-using Platform.Services;
 
 namespace Platform.Api.Controllers
 {
