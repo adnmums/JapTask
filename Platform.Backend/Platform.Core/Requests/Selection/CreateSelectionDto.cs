@@ -9,6 +9,6 @@ namespace Platform.Core.Requests.Selection
         public DateTime EndDate { get; set; }
         public SelectionStatus Status { get; set; }
         public Guid? ProgramId { get; set; }
-        public Guid? StudentId { get; set; }
+        public int? StudentId { get; set; }
     }
 }

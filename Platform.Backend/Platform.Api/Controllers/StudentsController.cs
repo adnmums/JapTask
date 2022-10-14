@@ -26,7 +26,7 @@ namespace Platform.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             return Ok(await studentsService.Delete(id));
         }
@@ -40,14 +40,14 @@ namespace Platform.Api.Controllers
 
         [Authorize(Roles = "Student")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(int id)
         {
             return Ok(await studentsService.GetById(id));
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, UpdateStudentDto updatedStudent)
+        public async Task<IActionResult> Update(int id, UpdateStudentDto updatedStudent)
         {
             return Ok(await studentsService.Update(id, updatedStudent));
         }

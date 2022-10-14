@@ -36,6 +36,8 @@ builder.Services.AddDbContextPool<PlatformDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.SetupCors();
+
 builder.Services.RegisterServices();
 
 builder.Services.RegisterAutomapperProfiles();
@@ -78,6 +80,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors("AllowOrigin");
 
 app.MapControllers();
 

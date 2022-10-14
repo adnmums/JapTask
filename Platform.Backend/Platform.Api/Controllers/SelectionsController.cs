@@ -43,13 +43,13 @@ namespace Platform.Api.Controllers
         }
 
         [HttpPut("AddStudent")]
-        public async Task<IActionResult> AddStudent(Guid selectionId, Guid studentId)
+        public async Task<IActionResult> AddStudent(Guid selectionId, int studentId)
         {
             return Ok(await selectionsService.AddStudent(selectionId, studentId));
         }
 
         [HttpPut("RemoveStudent")]
-        public async Task<IActionResult> RemoveStudent(Guid selectionId, Guid studentId)
+        public async Task<IActionResult> RemoveStudent(Guid selectionId, int studentId)
         {
             return Ok(await selectionsService.RemoveStudent(selectionId, studentId));
         }

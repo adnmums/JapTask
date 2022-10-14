@@ -6,9 +6,9 @@ namespace Platform.Core.Interfaces
     public interface IStudentsService
     {
         Task<ServiceResponse<List<StudentDto>>> GetAll(StudentParameters studentParameters);
-        Task<ServiceResponse<StudentDto>> GetById(Guid id);
+        Task<ServiceResponse<StudentDto>> GetById(int id);
         Task<ServiceResponse<List<StudentDto>>> Create(CreateStudentDto createStudent);
-        Task<ServiceResponse<StudentDto>> Update(Guid id, UpdateStudentDto updatedStudent);
-        Task<ServiceResponse<List<StudentDto>>> Delete(Guid id);
+        Task<ServiceResponse<StudentDto>> Update(int id, UpdateStudentDto updatedStudent);
+        Task<ServiceResponse<List<StudentDto>>> Delete(int id);
     }
 }

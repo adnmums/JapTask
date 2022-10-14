@@ -9,8 +9,8 @@ namespace Platform.Core.Interfaces
         Task<ServiceResponse<SelectionDto>> GetById(Guid id);
         Task<ServiceResponse<SelectionDto>> Create(CreateSelectionDto newSelection);
         Task<ServiceResponse<SelectionDto>> Update(Guid id, UpdateSelectionDto updatedSelection);
-        Task<ServiceResponse<SelectionDto>> AddStudent(Guid slectionId, Guid studentId);
-        Task<ServiceResponse<SelectionDto>> RemoveStudent(Guid slectionId, Guid studentId);
+        Task<ServiceResponse<SelectionDto>> AddStudent(Guid slectionId, int studentId);
+        Task<ServiceResponse<SelectionDto>> RemoveStudent(Guid slectionId, int studentId);
         Task<ServiceResponse<List<SelectionDto>>> Delete(Guid id);
     }
 }

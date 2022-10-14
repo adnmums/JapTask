@@ -18,7 +18,7 @@ namespace Platform.Services
             this.mapper = mapper;
             this.context = context;
         }
-        public async Task<ServiceResponse<SelectionDto>> AddStudent(Guid slectionId, Guid studentId)
+        public async Task<ServiceResponse<SelectionDto>> AddStudent(Guid slectionId, int studentId)
         {
             var student = await context.Students
                .FirstOrDefaultAsync(s => s.Id == studentId);
@@ -149,7 +149,7 @@ namespace Platform.Services
             };
         }
 
-        public async Task<ServiceResponse<SelectionDto>> RemoveStudent(Guid slectionId, Guid studentId)
+        public async Task<ServiceResponse<SelectionDto>> RemoveStudent(Guid slectionId, int studentId)
         {
             var student = await context.Students
               .FirstOrDefaultAsync(s => s.Id == studentId);
