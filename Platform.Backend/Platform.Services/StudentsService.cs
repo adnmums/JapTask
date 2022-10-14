@@ -58,11 +58,6 @@ namespace Platform.Services
             
             var email = await mailService.SendEmail(student.Email, EmailTemplate.Subject, template);
 
-            if (!email)
-            {
-                throw new KeyNotFoundException("Email not sent");
-            }
-
             return new ServiceResponse<List<StudentDto>>()
             {
                 Data = await context.Students

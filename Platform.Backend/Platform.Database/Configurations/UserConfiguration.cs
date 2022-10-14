@@ -21,7 +21,7 @@ namespace Platform.Database.Configurations
                 {
                     Id = 1,
                     UserName = "admin",
-                    PasswordHash = hash.HashPassword(null, "johnnycash"),
+                    PasswordHash = hash.HashPassword(null, "admin"),
                     FirstName = "Johnny",
                     LastName = "Cash"
                 });

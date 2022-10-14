@@ -232,14 +232,14 @@ namespace Platform.Database.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "d898d5e0-8346-43c0-aa94-83f52a1d63f4", "Admin", "ADMIN" },
-                    { 2, "86d84cdd-7c4b-476d-a595-831c4a4e9139", "Student", "STUDENT" }
+                    { 1, "7ce33597-b5b9-48b0-b492-b899cd349f1b", "Admin", "ADMIN" },
+                    { 2, "befe975b-65fc-438e-a6a8-26ffcbaff317", "Student", "STUDENT" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, null, "8ea5110d-6642-47e1-a781-7621df1133a7", "User", null, false, "Johnny", "Cash", false, null, null, null, "AQAAAAEAACcQAAAAEEky1IrFUNKqAYnRavmzgYeFGeJ4oY3T5V+PUdkMTTXFp0Ppo0ao8wMGWK873OL9OQ==", null, false, null, false, "admin" });
+                values: new object[] { 1, 0, null, "fb699c18-6926-444e-95b6-49a1f3f6a75b", "User", null, false, "Johnny", "Cash", false, null, null, null, "AQAAAAEAACcQAAAAEJhsnzD/fUDuG5zF34+DGGx8yCBX50pVlcnsFsqkkZcpLVDxiS3zC1Jl/ue/gLxfkA==", null, false, null, false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Programs",
