@@ -9,7 +9,11 @@ namespace Platform.Database.Configurations
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.HasData(
-                new UserRole { RoleId = 1, UserId = 1 }
+                new UserRole { RoleId = 1, UserId = 1 },
+                new UserRole { RoleId = 2, UserId = 2 },
+                new UserRole { RoleId = 2, UserId = 3 },
+                new UserRole { RoleId = 2, UserId = 4 },
+                new UserRole { RoleId = 2, UserId = 5 }
                 );
         }
     }

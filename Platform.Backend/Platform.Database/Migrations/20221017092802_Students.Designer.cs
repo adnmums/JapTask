@@ -12,8 +12,8 @@ using Platform.Database;
 namespace Platform.Database.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    [Migration("20221014131024_initial")]
-    partial class initial
+    [Migration("20221017092802_Students")]
+    partial class Students
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -173,14 +173,14 @@ namespace Platform.Database.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "7ce33597-b5b9-48b0-b492-b899cd349f1b",
+                            ConcurrencyStamp = "8417836b-e218-4f36-96fe-6bc9932d0601",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "befe975b-65fc-438e-a6a8-26ffcbaff317",
+                            ConcurrencyStamp = "54e356f0-550b-4acf-a8b7-7dc419b0159f",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -218,11 +218,29 @@ namespace Platform.Database.Migrations
                         new
                         {
                             Id = new Guid("4c2b95e0-2022-4a8f-b537-eb3a32786b06"),
-                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2009),
+                            EndDate = new DateTime(2022, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProgramId = new Guid("b950ddf5-e9ad-47ff-9d2a-57259014fae6"),
-                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2008),
-                            Status = 0,
+                            StartDate = new DateTime(2022, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
                             Title = "Selection Curabitur"
+                        },
+                        new
+                        {
+                            Id = new Guid("a1066e97-c7c8-4aee-905b-61bb31d82bfb"),
+                            EndDate = new DateTime(2022, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProgramId = new Guid("907f54ba-2142-4719-aef9-6230c23bd7de"),
+                            StartDate = new DateTime(2022, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Title = "Selection Aenean"
+                        },
+                        new
+                        {
+                            Id = new Guid("30f96ef9-7b45-42f7-9fab-05a70e7fc394"),
+                            EndDate = new DateTime(2023, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProgramId = new Guid("79e9872d-5a2f-413e-ac36-511036ccd3d4"),
+                            StartDate = new DateTime(2022, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Title = "Selection Donec"
                         });
                 });
 
@@ -354,12 +372,12 @@ namespace Platform.Database.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fb699c18-6926-444e-95b6-49a1f3f6a75b",
+                            ConcurrencyStamp = "5d16c248-712c-4d03-9b56-50d7b23d7e3e",
                             EmailConfirmed = false,
                             FirstName = "Johnny",
                             LastName = "Cash",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEJhsnzD/fUDuG5zF34+DGGx8yCBX50pVlcnsFsqkkZcpLVDxiS3zC1Jl/ue/gLxfkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIScS12FfiRbsIilSztDuFfTs1gGmyE27O0FwJHoZ7hSDWmt0KJncClf89VaU/blGw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -385,6 +403,26 @@ namespace Platform.Database.Migrations
                         {
                             UserId = 1,
                             RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            RoleId = 2
                         });
                 });
 
@@ -401,6 +439,76 @@ namespace Platform.Database.Migrations
                     b.HasIndex("SelectionId");
 
                     b.HasDiscriminator().HasValue("Student");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1974, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "e4527724-3e30-444d-a014-805f5002909c",
+                            EmailConfirmed = false,
+                            FirstName = "Rasheed",
+                            LastName = "Wallace",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEORdPdguQhQWv5GSM+g3GPdGY+TTgTewqCSynPef/qbf8DZ1/7uFW4MGj305ZxCDsw==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "sheed",
+                            SelectionId = new Guid("4c2b95e0-2022-4a8f-b537-eb3a32786b06"),
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1976, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "c01e3b43-146c-4509-a12f-34ce489683ed",
+                            EmailConfirmed = false,
+                            FirstName = "Allen",
+                            LastName = "Iverson",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKyzWwV53RkysPBF5uB79y6RdLUDz1K/YFQrPZ3cl5xrZim3w2MtMQ9h96/tA06K2Q==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "answer",
+                            SelectionId = new Guid("a1066e97-c7c8-4aee-905b-61bb31d82bfb"),
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1975, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "e70fd0bf-2fef-43e8-8f5f-a61e0a8b50b4",
+                            EmailConfirmed = false,
+                            FirstName = "Vince",
+                            LastName = "Carter",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEOKsjC1byRokPI5f4Mwi3nZ65OA4yRXca6sCKXf9/dLL5PtfJ2aZFUs+0nKZ0WmyQw==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "vinsanity",
+                            SelectionId = new Guid("a1066e97-c7c8-4aee-905b-61bb31d82bfb"),
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1978, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "15ea3d6e-9a87-4449-b245-e07c018fc5a4",
+                            EmailConfirmed = false,
+                            FirstName = "Gary",
+                            LastName = "Payton",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEAeI3v1Z/d8vkQy6wjCbqFh/vZkRvbm8gADWoQciWXzytxFF5q8+nGpQHyFOP0zJrg==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "glove",
+                            SelectionId = new Guid("30f96ef9-7b45-42f7-9fab-05a70e7fc394"),
+                            Status = 0
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

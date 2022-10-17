@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Platform.Database.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -232,14 +232,14 @@ namespace Platform.Database.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "7ce33597-b5b9-48b0-b492-b899cd349f1b", "Admin", "ADMIN" },
-                    { 2, "befe975b-65fc-438e-a6a8-26ffcbaff317", "Student", "STUDENT" }
+                    { 1, "8bc5e73f-792d-4977-aa7d-0c11bd448430", "Admin", "ADMIN" },
+                    { 2, "78130c1f-c91e-4379-9f3a-dd1d70a179cd", "Student", "STUDENT" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, null, "fb699c18-6926-444e-95b6-49a1f3f6a75b", "User", null, false, "Johnny", "Cash", false, null, null, null, "AQAAAAEAACcQAAAAEJhsnzD/fUDuG5zF34+DGGx8yCBX50pVlcnsFsqkkZcpLVDxiS3zC1Jl/ue/gLxfkA==", null, false, null, false, "admin" });
+                values: new object[] { 1, 0, null, "68f9969e-9531-4231-a3be-1c091fa5b3ea", "User", null, false, "Johnny", "Cash", false, null, null, null, "AQAAAAEAACcQAAAAEDdSCInWuy2xZ70sh69q2569p7OwJrsWGGQtGzYFz6X4mGkc2dKsR2l2PC88kbalIw==", null, false, null, false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Programs",
@@ -259,7 +259,12 @@ namespace Platform.Database.Migrations
             migrationBuilder.InsertData(
                 table: "Selections",
                 columns: new[] { "Id", "EndDate", "ProgramId", "StartDate", "Status", "Title" },
-                values: new object[] { new Guid("4c2b95e0-2022-4a8f-b537-eb3a32786b06"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2009), new Guid("b950ddf5-e9ad-47ff-9d2a-57259014fae6"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2008), 0, "Selection Curabitur" });
+                values: new object[,]
+                {
+                    { new Guid("30f96ef9-7b45-42f7-9fab-05a70e7fc394"), new DateTime(2023, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("79e9872d-5a2f-413e-ac36-511036ccd3d4"), new DateTime(2022, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "Selection Donec" },
+                    { new Guid("4c2b95e0-2022-4a8f-b537-eb3a32786b06"), new DateTime(2022, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("b950ddf5-e9ad-47ff-9d2a-57259014fae6"), new DateTime(2022, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Selection Curabitur" },
+                    { new Guid("a1066e97-c7c8-4aee-905b-61bb31d82bfb"), new DateTime(2022, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("907f54ba-2142-4719-aef9-6230c23bd7de"), new DateTime(2022, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "Selection Aenean" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Platform.Database;
 
@@ -11,9 +12,10 @@ using Platform.Database;
 namespace Platform.Database.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    partial class PlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221017092010_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,14 +173,14 @@ namespace Platform.Database.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8417836b-e218-4f36-96fe-6bc9932d0601",
+                            ConcurrencyStamp = "8bc5e73f-792d-4977-aa7d-0c11bd448430",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "54e356f0-550b-4acf-a8b7-7dc419b0159f",
+                            ConcurrencyStamp = "78130c1f-c91e-4379-9f3a-dd1d70a179cd",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -370,12 +372,12 @@ namespace Platform.Database.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5d16c248-712c-4d03-9b56-50d7b23d7e3e",
+                            ConcurrencyStamp = "68f9969e-9531-4231-a3be-1c091fa5b3ea",
                             EmailConfirmed = false,
                             FirstName = "Johnny",
                             LastName = "Cash",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEIScS12FfiRbsIilSztDuFfTs1gGmyE27O0FwJHoZ7hSDWmt0KJncClf89VaU/blGw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDdSCInWuy2xZ70sh69q2569p7OwJrsWGGQtGzYFz6X4mGkc2dKsR2l2PC88kbalIw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -401,26 +403,6 @@ namespace Platform.Database.Migrations
                         {
                             UserId = 1,
                             RoleId = 1
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            UserId = 4,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            UserId = 5,
-                            RoleId = 2
                         });
                 });
 
@@ -437,76 +419,6 @@ namespace Platform.Database.Migrations
                     b.HasIndex("SelectionId");
 
                     b.HasDiscriminator().HasValue("Student");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(1974, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e4527724-3e30-444d-a014-805f5002909c",
-                            EmailConfirmed = false,
-                            FirstName = "Rasheed",
-                            LastName = "Wallace",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEORdPdguQhQWv5GSM+g3GPdGY+TTgTewqCSynPef/qbf8DZ1/7uFW4MGj305ZxCDsw==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "sheed",
-                            SelectionId = new Guid("4c2b95e0-2022-4a8f-b537-eb3a32786b06"),
-                            Status = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(1976, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c01e3b43-146c-4509-a12f-34ce489683ed",
-                            EmailConfirmed = false,
-                            FirstName = "Allen",
-                            LastName = "Iverson",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEKyzWwV53RkysPBF5uB79y6RdLUDz1K/YFQrPZ3cl5xrZim3w2MtMQ9h96/tA06K2Q==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "answer",
-                            SelectionId = new Guid("a1066e97-c7c8-4aee-905b-61bb31d82bfb"),
-                            Status = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(1975, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e70fd0bf-2fef-43e8-8f5f-a61e0a8b50b4",
-                            EmailConfirmed = false,
-                            FirstName = "Vince",
-                            LastName = "Carter",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEOKsjC1byRokPI5f4Mwi3nZ65OA4yRXca6sCKXf9/dLL5PtfJ2aZFUs+0nKZ0WmyQw==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "vinsanity",
-                            SelectionId = new Guid("a1066e97-c7c8-4aee-905b-61bb31d82bfb"),
-                            Status = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(1978, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "15ea3d6e-9a87-4449-b245-e07c018fc5a4",
-                            EmailConfirmed = false,
-                            FirstName = "Gary",
-                            LastName = "Payton",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAeI3v1Z/d8vkQy6wjCbqFh/vZkRvbm8gADWoQciWXzytxFF5q8+nGpQHyFOP0zJrg==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "glove",
-                            SelectionId = new Guid("30f96ef9-7b45-42f7-9fab-05a70e7fc394"),
-                            Status = 0
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

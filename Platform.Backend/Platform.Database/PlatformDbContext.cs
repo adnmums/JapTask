@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Platform.Core.Entities;
+using Platform.Core.Requests.Admin;
 using Platform.Database.Configurations;
 
 namespace Platform.Database
@@ -24,11 +25,14 @@ namespace Platform.Database
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new ProgramConfiguration());
             modelBuilder.ApplyConfiguration(new SelectionConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentConfiguration());
+            //modelBuilder.ApplyConfiguration(new OverallSuccessConfiguration());
         }
 
         public DbSet<Student> Students { get; set; } = null!;
         public DbSet<SProgram> Programs { get; set; } = null!;
         public DbSet<Selection> Selections { get; set; } = null!;
         public DbSet<Comment> Comments { get; set; } = null!;
+        //public DbSet<OverallSuccess> OverallSuccesses { get; set; } = null!;
     }
 }
