@@ -26,13 +26,18 @@ namespace Platform.Database
             modelBuilder.ApplyConfiguration(new ProgramConfiguration());
             modelBuilder.ApplyConfiguration(new SelectionConfiguration());
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
-            //modelBuilder.ApplyConfiguration(new OverallSuccessConfiguration());
+            modelBuilder.ApplyConfiguration(new OverallSuccessConfiguration());
+            modelBuilder.ApplyConfiguration(new SelectionSuccessConfiguration());
+
         }
 
         public DbSet<Student> Students { get; set; } = null!;
         public DbSet<SProgram> Programs { get; set; } = null!;
         public DbSet<Selection> Selections { get; set; } = null!;
         public DbSet<Comment> Comments { get; set; } = null!;
-        //public DbSet<OverallSuccess> OverallSuccesses { get; set; } = null!;
+        public DbSet<OverallSuccess> OverallSuccesses { get; set; } = null!;
+        public DbSet<SelectionSuccess> SelectionSuccesses { get; set; } = null!;
+
+
     }
 }

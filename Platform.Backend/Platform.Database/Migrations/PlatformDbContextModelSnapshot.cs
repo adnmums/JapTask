@@ -171,14 +171,14 @@ namespace Platform.Database.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8417836b-e218-4f36-96fe-6bc9932d0601",
+                            ConcurrencyStamp = "2f416c1a-9376-40ec-b51f-ccac9d48e758",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "54e356f0-550b-4acf-a8b7-7dc419b0159f",
+                            ConcurrencyStamp = "5cb69771-b542-4029-9982-ca17d30ce9d7",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -370,12 +370,12 @@ namespace Platform.Database.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5d16c248-712c-4d03-9b56-50d7b23d7e3e",
+                            ConcurrencyStamp = "d2d66a46-e47d-41a5-a472-3a8a0a3531aa",
                             EmailConfirmed = false,
                             FirstName = "Johnny",
                             LastName = "Cash",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEIScS12FfiRbsIilSztDuFfTs1gGmyE27O0FwJHoZ7hSDWmt0KJncClf89VaU/blGw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENZVfnHPVE27yGApiH8GJ8C3je4qBCOzrw393R2oE3M+FfggU3kF9JX0zvoVX30MlA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -424,6 +424,33 @@ namespace Platform.Database.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Platform.Core.Requests.Admin.OverallSuccess", b =>
+                {
+                    b.Property<double>("OverallSuccessRate")
+                        .HasColumnType("float");
+
+                    b.ToTable("OverallSuccess", null, t => t.ExcludeFromMigrations());
+                });
+
+            modelBuilder.Entity("Platform.Core.Requests.Admin.SelectionSuccess", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProgramName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("SuccessRate")
+                        .HasColumnType("float");
+
+                    b.ToTable("SelectionSuccess", null, t => t.ExcludeFromMigrations());
+                });
+
             modelBuilder.Entity("Platform.Core.Entities.Student", b =>
                 {
                     b.HasBaseType("Platform.Core.Entities.User");
@@ -444,12 +471,12 @@ namespace Platform.Database.Migrations
                             Id = 2,
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1974, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e4527724-3e30-444d-a014-805f5002909c",
+                            ConcurrencyStamp = "8f9520f3-e11f-4979-8728-83c427bbb371",
                             EmailConfirmed = false,
                             FirstName = "Rasheed",
                             LastName = "Wallace",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEORdPdguQhQWv5GSM+g3GPdGY+TTgTewqCSynPef/qbf8DZ1/7uFW4MGj305ZxCDsw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIULY721dMJWx7oD6LlTI9mOkGs+ecwkx0nXFX7gqcKuNz6iVvkHkuMLoSB2N0zMlA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "sheed",
@@ -461,12 +488,12 @@ namespace Platform.Database.Migrations
                             Id = 3,
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1976, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c01e3b43-146c-4509-a12f-34ce489683ed",
+                            ConcurrencyStamp = "c02966a2-df4c-4fc8-b6d5-1052ad7108ce",
                             EmailConfirmed = false,
                             FirstName = "Allen",
                             LastName = "Iverson",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEKyzWwV53RkysPBF5uB79y6RdLUDz1K/YFQrPZ3cl5xrZim3w2MtMQ9h96/tA06K2Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMezetFEEuncUhzRb8qpcggJWMXW1VnmjVSSaUXf767mBrS2Okcvz55GzLQF7sxDew==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "answer",
@@ -478,12 +505,12 @@ namespace Platform.Database.Migrations
                             Id = 4,
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1975, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e70fd0bf-2fef-43e8-8f5f-a61e0a8b50b4",
+                            ConcurrencyStamp = "bc8ee466-42aa-4c17-8c8e-d3aef4c83121",
                             EmailConfirmed = false,
                             FirstName = "Vince",
                             LastName = "Carter",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEOKsjC1byRokPI5f4Mwi3nZ65OA4yRXca6sCKXf9/dLL5PtfJ2aZFUs+0nKZ0WmyQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECkq3yDsku82Sa5z04f63TUD9pj5ZFK0tjRc1YKRmR22+SDlYwjJADQlAoSJJCq58Q==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "vinsanity",
@@ -495,12 +522,12 @@ namespace Platform.Database.Migrations
                             Id = 5,
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1978, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "15ea3d6e-9a87-4449-b245-e07c018fc5a4",
+                            ConcurrencyStamp = "e8ab3648-aeff-4c4d-a1b2-ee75f8ca7f47",
                             EmailConfirmed = false,
                             FirstName = "Gary",
                             LastName = "Payton",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAeI3v1Z/d8vkQy6wjCbqFh/vZkRvbm8gADWoQciWXzytxFF5q8+nGpQHyFOP0zJrg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGDY2HQAJ7NGjgZajEGMlyWxhkwleKWSQF93PkmFdsV7HmsNDuNqHat/lAsPJe0LxA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "glove",

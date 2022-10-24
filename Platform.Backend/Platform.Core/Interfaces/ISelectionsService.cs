@@ -1,11 +1,12 @@
-﻿using Platform.Core.Entities;
+﻿using Platform.Common;
+using Platform.Core.Entities;
 using Platform.Core.Requests.Selection;
 
 namespace Platform.Core.Interfaces
 {
     public interface ISelectionsService
     {
-        Task<ServiceResponse<List<SelectionDto>>> GetAll(SelectionParameters selectionParameters);
+        Task<ServiceResponse<List<SelectionDto>>> GetAll(RequestParameters selectionParameters);
         Task<ServiceResponse<SelectionDto>> GetById(Guid id);
         Task<ServiceResponse<SelectionDto>> Create(CreateSelectionDto newSelection);
         Task<ServiceResponse<SelectionDto>> Update(Guid id, UpdateSelectionDto updatedSelection);

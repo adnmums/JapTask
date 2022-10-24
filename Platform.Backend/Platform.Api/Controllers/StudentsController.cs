@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Platform.Common;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Student;
 
@@ -32,7 +33,7 @@ namespace Platform.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] StudentParameters studentParameters)
+        public async Task<IActionResult> GetAll([FromQuery]  RequestParameters studentParameters)
         {
             return Ok(await studentsService.GetAll(studentParameters));
         }

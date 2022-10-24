@@ -1,18 +1,15 @@
 ﻿namespace Platform.Common
 {
-    public abstract class RequestParameters
+    public class RequestParameters
     {
-        const int maxPagesize = 10;
-        public int PageNumber { get; set; } = 1;
+        public string? Filter { get; set; }
 
-        private int _pageSize = 10;
-        public int PageSize
-        {
-            get { return _pageSize; }
-            set
-            {
-                _pageSize = (value > maxPagesize) ? maxPagesize : value;
-            }
-        }
+        public string? Value { get; set; }
+
+        public string? Sort { get; set; }
+
+        public int Page { get; set; } = 1;
+
+        public int PageSize { get; set; } = 5;
     }
 }

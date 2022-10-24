@@ -2,12 +2,16 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using Platform.Common;
 using Platform.Core.Entities;
 using Platform.Core.Extensions;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Mail;
 using Platform.Core.Requests.Student;
 using Platform.Database;
+using System.Linq.Dynamic.Core;
+
 
 namespace Platform.Services
 {
@@ -90,20 +94,66 @@ namespace Platform.Services
             };
         }
 
-        public async Task<ServiceResponse<List<StudentDto>>> GetAll(StudentParameters studentParameters)
+        public async Task<ServiceResponse<List<StudentDto>>> GetAll(RequestParameters studentParameters)
         {
-            
-            return new ServiceResponse<List<StudentDto>>()
+            var students = context.Students.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(studentParameters.Filter) && !string.IsNullOrWhiteSpace(studentParameters.Value))
             {
-                Data = await context.Students
-                .Include(s => s.Selection)
-                .ThenInclude(s => s.Program)
-                .Include(c => c.Comments)
-                .Skip((studentParameters.PageNumber - 1) * studentParameters.PageSize)
-                .Take(studentParameters.PageSize)
-                .Search(studentParameters.SearchTerm)
-                .Select(s => mapper.Map<StudentDto>(s)).ToListAsync()
+                if (studentParameters.Filter == "program")
+                {
+                    students = students.Where(s => s.Selection.Program.Title.ToUpper().Contains(studentParameters.Value.Trim().ToUpper()));
+                }
+                else if (studentParameters.Filter == "selection")
+                {
+                    students = students.Where(s => s.Selection.Title == studentParameters.Value);
+                }
+                else
+                {
+                    students = students.Where(studentParameters.Filter + $"= \"{studentParameters.Value}\"");
+                }
             };
+
+            if (!string.IsNullOrWhiteSpace(studentParameters.Sort))
+            {
+                switch (studentParameters.Sort)
+                {
+                    case "program":
+                        students = students.OrderBy("selection.program.title");
+                        break;
+                    case "program desc":
+                        students = students.OrderBy("selection.program.title desc");
+                        break;
+                    case "selection":
+                        students = students.OrderBy("selection.title");
+                        break;
+                    case "selection desc":
+                        students = students.OrderBy("selection.title desc");
+                        break;
+                    default:
+                        students = students.OrderBy(studentParameters.Sort);
+                        break;
+                }
+            }
+
+            var count = students.Count();
+
+            var pages = (int)Math.Ceiling((double)students.Count() / studentParameters.PageSize);
+
+            students = students.Page(studentParameters.Page, studentParameters.PageSize)
+                               .Include(s => s.Selection)
+                               .ThenInclude(s => s.Program);
+
+            var response = new ServiceResponse<List<StudentDto>>
+            {
+                Data = await students
+                .Select(s => mapper.Map<StudentDto>(s))
+                .ToListAsync(),
+                Pages = pages,
+                Count = count
+            };
+
+            return response;
         }
 
         public async Task<ServiceResponse<StudentDto>> GetById(int id)
@@ -111,6 +161,7 @@ namespace Platform.Services
             var student = await context.Students
                 .Include(s => s.Selection)
                 .ThenInclude(s => s.Program)
+                .Include(c => c.Comments)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (student == null)
@@ -137,11 +188,7 @@ namespace Platform.Services
                 throw new KeyNotFoundException("Student not found");
             }
 
-            student.FirstName = updatedStudent.FirstName;
-            student.LastName = updatedStudent.LastName;
-            student.BirthDate = updatedStudent.BirthDate;
-            student.Status = updatedStudent.Status;
-            student.Selection = selection;
+            student = mapper.Map(updatedStudent, student);
 
             await context.SaveChangesAsync();
 

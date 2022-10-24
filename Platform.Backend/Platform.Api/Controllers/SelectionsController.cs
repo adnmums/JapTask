@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Platform.Common;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Selection;
 
@@ -18,7 +19,7 @@ namespace Platform.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] SelectionParameters selectionParameters)
+        public async Task<IActionResult> GetAll([FromQuery] RequestParameters selectionParameters)
         {
             return Ok(await selectionsService.GetAll(selectionParameters));
         }

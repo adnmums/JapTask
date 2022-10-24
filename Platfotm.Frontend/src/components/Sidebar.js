@@ -1,10 +1,26 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logoutUser } from "../features/auth/authSlice";
+
 import "../assets/styles/sidebar.css";
 import student from "../assets/images/student.png";
-import { FaBars, FaUserAlt, FaRegChartBar, FaThList } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+
+import { Button } from "react-bootstrap";
+import {
+  FaBars,
+  FaUserAlt,
+  FaRegChartBar,
+  FaThList,
+  FaSignOutAlt,
+  FaTable,
+} from "react-icons/fa";
 
 const Sidebar = ({ children }) => {
+  const dispatch = useDispatch();
+  //const navigate = useNavigate();
+  const { user } = useSelector((state) => state.reducer.auth);
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
   const menuItem = [
@@ -23,36 +39,65 @@ const Sidebar = ({ children }) => {
       name: "Selections",
       icon: <FaThList />,
     },
+    {
+      path: "/report",
+      name: "Admin Report",
+      icon: <FaTable />,
+    },
   ];
+
+  const handleLogut = () => {
+    dispatch(logoutUser());
+  };
+
+  //console.log(user.data.role);
+
   return (
-    <div className="container">
-      <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
-        <div className="top_section">
-          <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
-            <img src={student} alt="student" className="logoPic" />
-          </h1>
-          <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
-            <FaBars onClick={toggle} />
-          </div>
-        </div>
-        {menuItem.map((item, index) => (
-          <NavLink
-            to={item.path}
-            key={index}
-            className="link"
-            activeclassname="active"
-          >
-            <div className="icon">{item.icon}</div>
+    <div className="sidebar-container">
+      {user && (
+        <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
+          <div className="top_section">
+            <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
+              <img src={student} alt="student" className="logoPic" />
+            </h1>
             <div
-              style={{ display: isOpen ? "block" : "none" }}
-              className="link_text"
+              style={{ marginLeft: isOpen ? "50px" : "0px" }}
+              className="bars"
             >
-              {item.name}
+              <FaBars onClick={toggle} />
             </div>
-          </NavLink>
-        ))}
-      </div>
-      <main>{children}</main>
+          </div>
+          {user?.data?.role === "Admin" &&
+            menuItem.map((item, index) => (
+              <NavLink
+                to={item.path}
+                key={index}
+                className="link"
+                activeclassname="active"
+              >
+                <div className="icon">{item.icon}</div>
+                <div
+                  style={{ display: isOpen ? "block" : "none" }}
+                  className="link_text"
+                >
+                  {item.name}
+                </div>
+              </NavLink>
+            ))}
+
+          <Button
+            variant="danger"
+            className="logout-btn"
+            onClick={handleLogut}
+            size={isOpen ? "" : "sm"}
+            //style={{ display: isOpen ? "block" : "none" }}
+          >
+            {isOpen ? "Logout" : <FaSignOutAlt />}
+          </Button>
+        </div>
+      )}
+
+      <main className="sidebar-main">{children}</main>
     </div>
   );
 };

@@ -3,10 +3,10 @@
   padding: 0;
   text-decoration: none;
 }
-.container {
+.sidebar-container {
   display: flex;
 }
-main {
+.sidebar-main {
   width: 100%;
   padding: 20px;
 }
@@ -56,4 +56,10 @@ main {
 .logoPic {
   width: 50px;
   height: 50px;
+}
+
+.logout-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
 }

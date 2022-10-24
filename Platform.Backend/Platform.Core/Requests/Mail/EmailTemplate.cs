@@ -8,7 +8,7 @@
             return $"<html><body>" +
                 $"<p>Welcomet to the Platform.</p>" +
                 $"<p>Your credentials are: <br/> " +
-                $"Username: {username} < br/>" +
+                $"Username: {username} <br/>" +
                 $"Password: {password}</p>" +
                 $"</body></html>";
         }

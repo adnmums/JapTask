@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using Platform.Common;
 using Platform.Core.Entities;
 using Platform.Core.Extensions;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Selection;
 using Platform.Database;
+using Platform.Database.Migrations;
+using System.Linq.Dynamic.Core;
 
 namespace Platform.Services
 {
@@ -116,19 +121,53 @@ namespace Platform.Services
             };
         }
 
-        public async Task<ServiceResponse<List<SelectionDto>>> GetAll(SelectionParameters selectionParameters)
+        public async Task<ServiceResponse<List<SelectionDto>>> GetAll(RequestParameters selectionParameters)
         {
-            return new ServiceResponse<List<SelectionDto>>()
+            var selections = context.Selections.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(selectionParameters.Filter) && !string.IsNullOrWhiteSpace(selectionParameters.Value))
             {
-                Data = await context.Selections
-                 .Include(s => s.Program)
-                 .Include(s => s.Students)
-                 .Skip((selectionParameters.PageNumber - 1) * selectionParameters.PageSize)
-                 .Take(selectionParameters.PageSize)
-                 .Search(selectionParameters.SearchTerm)
-                 .Select(s => mapper.Map<SelectionDto>(s))
-                 .ToListAsync()
+                if (selectionParameters.Filter == "program")
+                {
+                    selections = selections.Where(s => s.Program.Title == selectionParameters.Value);
+                }
+                else
+                {
+                    selections = selections.Where(selectionParameters.Filter + $"= \"{selectionParameters.Value}\"");
+                }
             };
+
+            if (!string.IsNullOrWhiteSpace(selectionParameters.Sort))
+            {
+                if (selectionParameters.Sort == "program")
+                {
+                    selections = selections.OrderBy("program.title");
+                }
+                else if (selectionParameters.Sort == "program desc")
+                {
+                    selections = selections.OrderBy("program.title desc");
+                }
+                else
+                {
+                    selections = selections.OrderBy(selectionParameters.Sort);
+                }
+            }
+            var count = selections.Count();
+            var pages = (int)Math.Ceiling((double)selections.Count() / selectionParameters.PageSize);
+
+            selections = selections
+                .Page(selectionParameters.Page, selectionParameters.PageSize)
+                .Include(s => s.Program)
+                .Include(s => s.Students);
+
+
+            var response = new ServiceResponse<List<SelectionDto>>
+            {
+                Data = await selections.Select(s => mapper.Map<SelectionDto>(s)).ToListAsync(),
+                Pages = pages,
+                Count = count
+            };
+            return response;
         }
 
         public async Task<ServiceResponse<SelectionDto>> GetById(Guid id)
