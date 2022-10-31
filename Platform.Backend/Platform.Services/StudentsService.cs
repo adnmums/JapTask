@@ -160,8 +160,11 @@ namespace Platform.Services
         {
             var student = await context.Students
                 .Include(s => s.Selection)
-                .ThenInclude(s => s.Program)
+                //.ThenInclude(s => s.Program)
                 .Include(c => c.Comments)
+                .Include(i => i.ItemStudents.OrderBy(ip => ip.ItemProgram.OrderNumber))
+                .ThenInclude(ip=> ip.ItemProgram)
+                .ThenInclude(i=> i.Item)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (student == null)

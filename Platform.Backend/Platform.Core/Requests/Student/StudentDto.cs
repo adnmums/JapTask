@@ -1,5 +1,6 @@
 ﻿using Platform.Core.Entities;
 using Platform.Core.Requests.Comment;
+using Platform.Core.Requests.ItemStudent;
 using Platform.Core.Requests.Selection;
 using Platform.Core.Requests.Users;
 
@@ -16,5 +17,6 @@ namespace Platform.Core.Requests.Student
         public SelectionDto? Selection { get; set; }
         public List<CommentDto> Comments { get; set; } = new List<CommentDto>();
         public ICollection<UserRoleDto> UserRoles { get; set; }
+        public List<ItemStudentDto> ItemStudents { get; set; } = new List<ItemStudentDto>();
     }
 }

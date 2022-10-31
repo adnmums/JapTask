@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using Platform.Common;
@@ -8,7 +7,6 @@ using Platform.Core.Extensions;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Selection;
 using Platform.Database;
-using Platform.Database.Migrations;
 using System.Linq.Dynamic.Core;
 
 namespace Platform.Services
@@ -23,11 +21,10 @@ namespace Platform.Services
             this.mapper = mapper;
             this.context = context;
         }
-        public async Task<ServiceResponse<SelectionDto>> AddStudent(Guid slectionId, int studentId)
+        public async Task<ServiceResponse<SelectionDto>> AddStudent(Guid slectionId, int studentId, Guid programId)
         {
             var student = await context.Students
                .FirstOrDefaultAsync(s => s.Id == studentId);
-
 
             if (student == null)
             {
@@ -38,7 +35,6 @@ namespace Platform.Services
                 .Include(s => s.Students)
                 .FirstOrDefaultAsync(s => s.Id == slectionId);
 
-
             if (selection == null)
             {
                 throw new KeyNotFoundException("Selection not found");
@@ -47,6 +43,39 @@ namespace Platform.Services
             selection.Students.Add(student);
             await context.SaveChangesAsync();
 
+            var program = await context.Programs
+               .Include(p => p.Selections)
+               .ThenInclude(s => s.Students)
+               .ThenInclude(s => s.ItemStudents)
+               .Include(p => p.ItemPrograms.OrderBy(ip => ip.OrderNumber))
+               .ThenInclude(ip => ip.Item)
+               .FirstOrDefaultAsync(p => p.Id == programId);
+
+            if (program == null)
+            {
+                throw new KeyNotFoundException("Program not found");
+            }
+
+            for (int i = 0; i < program.ItemPrograms.Count; i++)
+            {
+
+                var duration = Math.Ceiling((double)program.ItemPrograms[i].Item.WorkHours / 8);
+
+                var startDate = i == 0 ? student.Selection.StartDate : program.ItemPrograms[i - 1].ItemStudents[0].EndDate;
+
+                var endDate = i == 0 ? student.Selection.StartDate.AddDays(duration) : startDate?.AddDays(duration);
+
+                context.ItemStudents.Add(new ItemStudent
+                {
+                    ItemProgramId = program.ItemPrograms[i].Id,
+                    StudentId = student.Id,
+                    StartDate = startDate,
+                    EndDate = endDate,
+
+                });
+            }
+
+            await context.SaveChangesAsync();
 
             var selectionResponse = await context.Selections.
                 Include(s => s.Program)

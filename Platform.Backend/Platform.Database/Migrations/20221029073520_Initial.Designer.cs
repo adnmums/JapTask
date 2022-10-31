@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Platform.Database;
 
@@ -11,9 +12,10 @@ using Platform.Database;
 namespace Platform.Database.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    partial class PlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221029073520_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,7 +137,7 @@ namespace Platform.Database.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Platform.Core.Entities.Item", b =>
@@ -165,44 +167,7 @@ namespace Platform.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!",
-                            Name = "React - The Complete Guide",
-                            Type = 0,
-                            Urls = "https://reactjs.org/",
-                            WorkHours = 40
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Build the back-end of a .NET 6 web application with Web API, Entity Framework Core & SQL Server in no time!",
-                            Name = ".Net Core API",
-                            Type = 0,
-                            Urls = "https://dotnet.microsoft.com/en-us/",
-                            WorkHours = 20
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Learn how to start building, shipping, and maintaining software with GitHub.",
-                            Name = "Git - Crash Course",
-                            Type = 0,
-                            Urls = "https://docs.github.com/en",
-                            WorkHours = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Send completed assignment to mentor",
-                            Name = ".Net Core & React Test Project - Task",
-                            Type = 1,
-                            WorkHours = 0
-                        });
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Platform.Core.Entities.ItemProgram", b =>
@@ -231,69 +196,7 @@ namespace Platform.Database.Migrations
                     b.HasIndex("ItemId", "ProgramId")
                         .IsUnique();
 
-                    b.ToTable("ItemPrograms", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ItemId = 1,
-                            OrderNumber = 1,
-                            ProgramId = new Guid("79e9872d-5a2f-413e-ac36-511036ccd3d4")
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ItemId = 2,
-                            OrderNumber = 2,
-                            ProgramId = new Guid("79e9872d-5a2f-413e-ac36-511036ccd3d4")
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ItemId = 3,
-                            OrderNumber = 3,
-                            ProgramId = new Guid("79e9872d-5a2f-413e-ac36-511036ccd3d4")
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ItemId = 4,
-                            OrderNumber = 4,
-                            ProgramId = new Guid("79e9872d-5a2f-413e-ac36-511036ccd3d4")
-                        });
-                });
-
-            modelBuilder.Entity("Platform.Core.Entities.ItemStudent", b =>
-                {
-                    b.Property<int>("ItemProgramId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Progress")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
-                    b.Property<string>("ProgressStatus")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("Not Started");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ItemProgramId", "StudentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("ItemStudent", (string)null);
+                    b.ToTable("ItemPrograms");
                 });
 
             modelBuilder.Entity("Platform.Core.Entities.Program", b =>
@@ -312,7 +215,7 @@ namespace Platform.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Programs", (string)null);
+                    b.ToTable("Programs");
 
                     b.HasData(
                         new
@@ -368,14 +271,14 @@ namespace Platform.Database.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "3da924ad-6053-444f-bfe1-402aaacfd96a",
+                            ConcurrencyStamp = "3a24e33e-ca46-406b-9ba5-331d438dba57",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "09a4edd3-afad-4257-b855-c2c493a30ded",
+                            ConcurrencyStamp = "88682312-8c47-4a6d-851d-8c12dca2dd23",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -407,7 +310,7 @@ namespace Platform.Database.Migrations
 
                     b.HasIndex("ProgramId");
 
-                    b.ToTable("Selections", (string)null);
+                    b.ToTable("Selections");
 
                     b.HasData(
                         new
@@ -528,12 +431,12 @@ namespace Platform.Database.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "42a11188-a9ec-4838-8352-478eac732fd5",
+                            ConcurrencyStamp = "28edb798-eb21-485b-9fb4-968ed2752220",
                             EmailConfirmed = false,
                             FirstName = "Johnny",
                             LastName = "Cash",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMIU3j4au8ba4JlVhsOZXMpDemQXfAQLmxYum4kRDxWgM4CoCc8CyV+jQFO/dvS4Wg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHEGbsat90WMefNZVuwJJqLIIJwtzIkw/UDnKaN7GXUQzGJNsV+6FIeJcQYkDtderA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -629,12 +532,12 @@ namespace Platform.Database.Migrations
                             Id = 2,
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1974, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c2d3e8bc-9d51-4209-867b-8c6bea6f3cb6",
+                            ConcurrencyStamp = "bcd2914b-3339-4286-872f-955390a00777",
                             EmailConfirmed = false,
                             FirstName = "Rasheed",
                             LastName = "Wallace",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAgjCq7H3JXXOU4OPrBUxZrptf8BZGZSpf4PIHNyPe8LfwDSuAERAUF/xNTjwVd4ng==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECuRZWG3vHPk7BeOHMuClGnoEgPV1Be++B74nPexckCmg4kiSS7d1aag9t5OT4nk8A==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "sheed",
@@ -646,12 +549,12 @@ namespace Platform.Database.Migrations
                             Id = 3,
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1976, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "87dc76f3-0eba-4755-bf28-9473c5e3d6ec",
+                            ConcurrencyStamp = "31784fbd-67d4-477d-8107-8f15cfba92b9",
                             EmailConfirmed = false,
                             FirstName = "Allen",
                             LastName = "Iverson",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEKpVnmPO6TCdy1wv6AWZNyLDmavYceif1s/FbYgpFakQAsjVQZ++VfLCCmdI51Ysbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGytzHqBWwFwlumtlH4Ta6MbrtnXuOFvdRRK2f0tJakLegW/t7kOcFbpG+57kmynsg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "answer",
@@ -663,12 +566,12 @@ namespace Platform.Database.Migrations
                             Id = 4,
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1975, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "8ac1cb3a-fcce-4846-b7f8-12991490c520",
+                            ConcurrencyStamp = "bed0ce7b-e3c7-4719-b7a5-0f7a8ab638f7",
                             EmailConfirmed = false,
                             FirstName = "Vince",
                             LastName = "Carter",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEGYwTgKjAWtgb2WhtI5pksC+i221WLn7TVg7N3r1+Uq4ax+TsXMlLSYHjQbWC9ByRQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECLe/aDj/dbj1hF72o0zYYFTGjow9matGJ/IsRYPlfTar6acRL/cBiCwpX5WDNSsHQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "vinsanity",
@@ -680,33 +583,17 @@ namespace Platform.Database.Migrations
                             Id = 5,
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1978, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c1cb9de3-436b-463e-8286-b6cd6f7ef6b7",
+                            ConcurrencyStamp = "f94cc2ac-7548-4ea3-83a0-6f1ae1be58ab",
                             EmailConfirmed = false,
                             FirstName = "Gary",
                             LastName = "Payton",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEKOsNKyRSs7Igwl4s2TA17PIzOODF3MwLFOTZzg1UgVhmem9kMCRoryXsNgFH8DM+g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBCEY6VmGjFqdzKbcDsOrdaYhrIpRyiHhDQcC3XUDYc1iv7KhOfZm15LEuthArZPsw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "glove",
                             SelectionId = new Guid("30f96ef9-7b45-42f7-9fab-05a70e7fc394"),
                             Status = 0
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(1968, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "8318022c-c549-48d2-a0b9-1cc672e11b91",
-                            EmailConfirmed = false,
-                            FirstName = "Zgembo",
-                            LastName = "Adislic",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAgLYPGf+6dq+/hVZnuXHofvTEY4nwi/Y5Xnm72Gvecf2WKoPYXRcmQot0MxboyS+w==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "zgembo",
-                            Status = 3
                         });
                 });
 
@@ -780,25 +667,6 @@ namespace Platform.Database.Migrations
                     b.Navigation("Program");
                 });
 
-            modelBuilder.Entity("Platform.Core.Entities.ItemStudent", b =>
-                {
-                    b.HasOne("Platform.Core.Entities.ItemProgram", "ItemProgram")
-                        .WithMany("ItemStudents")
-                        .HasForeignKey("ItemProgramId")
-                        .OnDelete(DeleteBehavior.ClientNoAction)
-                        .IsRequired();
-
-                    b.HasOne("Platform.Core.Entities.Student", "Student")
-                        .WithMany("ItemStudents")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ItemProgram");
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("Platform.Core.Entities.Selection", b =>
                 {
                     b.HasOne("Platform.Core.Entities.Program", "Program")
@@ -843,11 +711,6 @@ namespace Platform.Database.Migrations
                     b.Navigation("ItemPrograms");
                 });
 
-            modelBuilder.Entity("Platform.Core.Entities.ItemProgram", b =>
-                {
-                    b.Navigation("ItemStudents");
-                });
-
             modelBuilder.Entity("Platform.Core.Entities.Program", b =>
                 {
                     b.Navigation("ItemPrograms");
@@ -873,8 +736,6 @@ namespace Platform.Database.Migrations
             modelBuilder.Entity("Platform.Core.Entities.Student", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("ItemStudents");
                 });
 #pragma warning restore 612, 618
         }

@@ -16,8 +16,29 @@ namespace Platform.Database.Configurations
 
             builder
                .HasMany(s => s.Comments)
-               .WithOne(c => c.Student)
+               .WithOne(c => c.Student) 
                .HasForeignKey(s => s.StudentId);
+
+            builder
+               .HasMany(s => s.ItemPrograms)
+               .WithMany(s => s.Students)
+               .UsingEntity<ItemStudent>(
+                   j => j
+                       .HasOne(ips => ips.ItemProgram)
+                       .WithMany(ip => ip.ItemStudents)
+                       .HasForeignKey(ips => ips.ItemProgramId)
+                       .OnDelete(DeleteBehavior.ClientNoAction),
+                   j => j
+                       .HasOne(ips => ips.Student)
+                       .WithMany(s => s.ItemStudents)
+                       .HasForeignKey(ips => ips.StudentId),
+                   j =>
+                   {
+                       j.Property(ips => ips.Progress).HasDefaultValue(0);
+                       j.Property(ips => ips.ProgressStatus).HasDefaultValue("Not Started");
+                       j.HasKey(ip => new { ip.ItemProgramId, ip.StudentId });
+                   }
+               );
 
             var hash = new PasswordHasher<User>();
 
@@ -65,7 +86,18 @@ namespace Platform.Database.Configurations
                         BirthDate = new DateTime(1978, 5, 6),
                         Status = StudentStatus.InProgram,
                         SelectionId = Guid.Parse("30f96ef9-7b45-42f7-9fab-05a70e7fc394")
-                    }
+                    },
+                     new Student
+                     {
+                         Id = 6,
+                         UserName = "zgembo",
+                         PasswordHash = hash.HashPassword(null, "Zgembo1!"),
+                         FirstName = "Zgembo",
+                         LastName = "Adislic",
+                         BirthDate = new DateTime(1968, 5, 6),
+                         Status = StudentStatus.Extended,
+                         SelectionId = null
+                     }
                 );
         }
     }

@@ -28,16 +28,20 @@ namespace Platform.Database
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             modelBuilder.ApplyConfiguration(new OverallSuccessConfiguration());
             modelBuilder.ApplyConfiguration(new SelectionSuccessConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemProgramConfiguration());
 
         }
 
         public DbSet<Student> Students { get; set; } = null!;
-        public DbSet<SProgram> Programs { get; set; } = null!;
+        public DbSet<Program> Programs { get; set; } = null!;
         public DbSet<Selection> Selections { get; set; } = null!;
         public DbSet<Comment> Comments { get; set; } = null!;
         public DbSet<OverallSuccess> OverallSuccesses { get; set; } = null!;
         public DbSet<SelectionSuccess> SelectionSuccesses { get; set; } = null!;
-
+        public DbSet<Item> Items { get; set; } = null!;
+        public DbSet<ItemProgram> ItemPrograms { get; set; } = null!;
+        public DbSet<ItemStudent> ItemStudents { get; set; } = null!;
 
     }
 }

@@ -13,6 +13,9 @@ namespace Platform.Api.Extensions
             service.AddAutoMapper(typeof(UserProfile));
             service.AddAutoMapper(typeof(UserRoleProfile));
             service.AddAutoMapper(typeof(RoleProfile));
+            service.AddAutoMapper(typeof(ItemProfile));
+            service.AddAutoMapper(typeof(ItemProgramProfile));
+            service.AddAutoMapper(typeof(ItemStudentProfile));
         }
     }
 }

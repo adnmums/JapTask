@@ -14,7 +14,7 @@ namespace Platform.Core
             CreateMap<Student, StudentDto>();
             
             CreateMap<CreateStudentDto, Student>();
-            CreateMap<SProgram, ProgramDto>();
+            CreateMap<Program, ProgramDto>();
             CreateMap<Selection, SelectionDto>();
           
             CreateMap<CreateSelectionDto, Selection>();

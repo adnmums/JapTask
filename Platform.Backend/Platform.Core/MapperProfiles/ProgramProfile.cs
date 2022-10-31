@@ -8,7 +8,7 @@ namespace Platform.Core.MapperProfiles
     {
         public ProgramProfile()
         {
-            CreateMap<SProgram, ProgramDto>();
+            CreateMap<Program, ProgramDto>();
         }
     }
 }

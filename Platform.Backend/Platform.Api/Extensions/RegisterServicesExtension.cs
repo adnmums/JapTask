@@ -14,6 +14,7 @@ namespace Platform.Api.Extensions
             service.AddScoped<IAuthService, AuthService>();
             service.AddScoped<IAdminService, AdminService>();
             service.AddTransient<IMailService, MailService>();
+            service.AddScoped<IItemsService, ItemsService>();
         }
     }
 }

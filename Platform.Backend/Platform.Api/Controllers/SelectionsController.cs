@@ -44,9 +44,9 @@ namespace Platform.Api.Controllers
         }
 
         [HttpPut("AddStudent")]
-        public async Task<IActionResult> AddStudent(Guid selectionId, int studentId)
+        public async Task<IActionResult> AddStudent(Guid selectionId, int studentId, Guid programId)
         {
-            return Ok(await selectionsService.AddStudent(selectionId, studentId));
+            return Ok(await selectionsService.AddStudent(selectionId, studentId,programId));
         }
 
         [HttpPut("RemoveStudent")]
