@@ -9,17 +9,17 @@ import dayjs from "dayjs";
 
 import "../../assets/styles/table.css";
 import "../../pages/Students/styles/students.css";
-import "react-pagination-bar/dist/index.css";
-import { Button } from "react-bootstrap";
+
+import { Button, Pagination } from "react-bootstrap";
 
 import Select from "react-select";
-import { Pagination } from "react-pagination-bar";
 
 const Selections = () => {
   const [filter, setFilter] = useState("");
   const [value, setValue] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
+  // eslint-disable-next-line
   const [pageSize, setPageSize] = useState(5);
   //const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
@@ -48,17 +48,83 @@ const Selections = () => {
     1: "Complete",
   };
 
+  let pagItems = [];
+  for (let number = 1; number <= selections?.pages; number++) {
+    pagItems.push(
+      <Pagination.Item
+        key={number}
+        onClick={() => setPage(number)}
+        active={number === page}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
     <div>
       <h1>Students</h1>
+      <div className="items-form">
+        <div className="filter-form">
+          <div className="filter-field">
+            <label>Filter by:</label>
+            <Select
+              options={options}
+              onChange={(choice) => setFilter(choice.value)}
+            />
+          </div>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </div>
+        {/* <Button onClick={() => navigate("/selections/addstudent")}>
+          Add Student to selection
+        </Button>
+        <Button onClick={() => navigate("/add")}>
+          Remove Student from selection
+        </Button> */}
+        <Button onClick={() => navigate("/add")}>Add Selection</Button>
+      </div>
       <table>
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
-            <th>Program</th>
+            <th
+              onClick={() => {
+                setSort("title");
+              }}
+            >
+              Title
+            </th>
+            <th
+              onClick={() => {
+                setSort("startDate");
+              }}
+            >
+              Start Date
+            </th>
+            <th
+              onClick={() => {
+                setSort("endDate");
+              }}
+            >
+              End Date
+            </th>
+            <th
+              onClick={() => {
+                setSort("status");
+              }}
+            >
+              Status
+            </th>
+            <th
+              onClick={() => {
+                setSort("program");
+              }}
+            >
+              Program
+            </th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -98,45 +164,8 @@ const Selections = () => {
           })}
         </tbody>
       </table>
-      <div className="filter-order">
-        <div className="order-form">
-          <label>Order By:</label>
-          <Select
-            options={options}
-            onChange={(choice) => setSort(choice.value)}
-          />
-        </div>
-        <div className="filter-form">
-          <div className="filter-field">
-            <label>Filter by:</label>
-            <Select
-              options={options}
-              onChange={(choice) => setFilter(choice.value)}
-            />
-          </div>
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-        </div>
-      </div>
       <div className="pagination">
-        <Pagination
-          totalItems={selections?.count}
-          itemsPerPage={pageSize}
-          onlyPageNumbers={true}
-          onPageChange={(pageNumber) => setPage(pageNumber)}
-        />
-      </div>
-      <div className="students-btns">
-        <Button onClick={() => navigate("/add")}>
-          Add Student to selection
-        </Button>
-        <Button onClick={() => navigate("/add")}>
-          Remove Student from selection
-        </Button>
-        <Button onClick={() => navigate("/add")}>Add Selection</Button>
+        <Pagination>{pagItems}</Pagination>
       </div>
       {/* <DeleteModal show={modalShow} onHide={() => setModalShow(false)} /> */}
     </div>

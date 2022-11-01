@@ -6,6 +6,7 @@ import authReducer from "../features/auth/authSlice";
 import studentsReducer from "../features/students/studentsSlice";
 import programsReducer from "../features/programs/programsSlice";
 import selectionsReducer from "../features/selections/selectionsSlice";
+import itemsReducer from "../features/items/itemsSlice";
 
 const persistConfig = {
   key: "root",
@@ -25,5 +26,6 @@ export const store = configureStore({
     students: studentsReducer,
     programs: programsReducer,
     selections: selectionsReducer,
+    items: itemsReducer,
   },
 });

@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   students: null,
   studentById: null,
+  currentStudent: null,
   report: null,
   isError: false,
   isLoading: false,
@@ -110,6 +111,9 @@ export const studensSlice = createSlice({
       state.isLoading = false;
       state.message = "";
     },
+    select: (state, action) => {
+      state.currentStudent = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -154,5 +158,5 @@ export const studensSlice = createSlice({
   },
 });
 
-export const { reset } = studensSlice.actions;
+export const { reset, select } = studensSlice.actions;
 export default studensSlice.reducer;

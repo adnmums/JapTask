@@ -112,7 +112,6 @@ namespace Platform.Services
             .OrderBy(p => p.OrderNumber))
             .ThenInclude(ip => ip.Item)
             .Include(p => p.ItemPrograms)
-            .ThenInclude(p => p.OrderNumber)
             .FirstOrDefaultAsync(s => s.Id == id);
 
             if (program == null)

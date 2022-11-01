@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getStudents, reset } from "../../features/students/studentsSlice";
+import {
+  getStudents,
+  reset,
+  select,
+} from "../../features/students/studentsSlice";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
 import "../../assets/styles/table.css";
 import "./styles/students.css";
 import "react-pagination-bar/dist/index.css";
-import { Button } from "react-bootstrap";
+import { Button, Pagination } from "react-bootstrap";
 
 import Select from "react-select";
-import { Pagination } from "react-pagination-bar";
 import DeleteModal from "../../components/DeleteModalStudent";
 
 const Students = () => {
@@ -18,7 +21,8 @@ const Students = () => {
   const [value, setValue] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  // eslint-disable-next-line
+  const [pageSize, setPageSize] = useState(3);
   const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,18 +53,83 @@ const Students = () => {
     3: "Extended",
   };
 
+  let pagItems = [];
+  for (let number = 1; number <= students?.pages; number++) {
+    pagItems.push(
+      <Pagination.Item
+        key={number}
+        onClick={() => setPage(number)}
+        active={number === page}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+
+  const addStudent = (id) => {
+    dispatch(select(id));
+    navigate("/selections/addstudent");
+  };
+
   return (
     <div>
       <h1>Students</h1>
+      <div className="items-form">
+        <div className="filter-form">
+          <div className="filter-field">
+            <label>Filter by:</label>
+            <Select
+              options={options}
+              onChange={(choice) => setFilter(choice.value)}
+            />
+          </div>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </div>
+        <Button onClick={() => navigate("/add")}>Add Student</Button>
+      </div>
       <table>
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th
+              onClick={() => {
+                setSort("firstName");
+              }}
+            >
+              First Name
+            </th>
+            <th
+              onClick={() => {
+                setSort("lastName");
+              }}
+            >
+              Last Name
+            </th>
             <th>Birth Date</th>
-            <th>Status</th>
-            <th>Selection</th>
-            <th>Program</th>
+            <th
+              onClick={() => {
+                setSort("status");
+              }}
+            >
+              Status
+            </th>
+            <th
+              onClick={() => {
+                setSort("selection");
+              }}
+            >
+              Selection
+            </th>
+            <th
+              onClick={() => {
+                setSort("program");
+              }}
+            >
+              Program
+            </th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -95,45 +164,24 @@ const Students = () => {
                   >
                     Delete
                   </Button>
+                  {!student.selection?.title && (
+                    <Button
+                      variant="outline-info"
+                      size="sm"
+                      className="table-btn"
+                      onClick={() => addStudent(student.id)}
+                    >
+                      Add
+                    </Button>
+                  )}
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <div className="filter-order">
-        <div className="order-form">
-          <label>Order By:</label>
-          <Select
-            options={options}
-            onChange={(choice) => setSort(choice.value)}
-          />
-        </div>
-        <div className="filter-form">
-          <div className="filter-field">
-            <label>Filter by:</label>
-            <Select
-              options={options}
-              onChange={(choice) => setFilter(choice.value)}
-            />
-          </div>
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-        </div>
-      </div>
       <div className="pagination">
-        <Pagination
-          totalItems={students?.count}
-          itemsPerPage={pageSize}
-          onlyPageNumbers={true}
-          onPageChange={(pageNumber) => setPage(pageNumber)}
-        />
-      </div>
-      <div className="students-btns">
-        <Button onClick={() => navigate("/add")}>Add Student</Button>
+        <Pagination>{pagItems}</Pagination>
       </div>
       <DeleteModal show={modalShow} onHide={() => setModalShow(false)} />
     </div>

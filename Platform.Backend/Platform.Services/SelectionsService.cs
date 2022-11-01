@@ -6,6 +6,7 @@ using Platform.Core.Entities;
 using Platform.Core.Extensions;
 using Platform.Core.Interfaces;
 using Platform.Core.Requests.Selection;
+using Platform.Core.Requests.Student;
 using Platform.Database;
 using System.Linq.Dynamic.Core;
 
@@ -158,7 +159,8 @@ namespace Platform.Services
             {
                 if (selectionParameters.Filter == "program")
                 {
-                    selections = selections.Where(s => s.Program.Title == selectionParameters.Value);
+                    selections = selections.Where(s => s.Program.Title.ToUpper().Contains(selectionParameters.Value.Trim().ToUpper()));
+
                 }
                 else
                 {

@@ -15,6 +15,7 @@ import {
   FaThList,
   FaSignOutAlt,
   FaTable,
+  FaAlignJustify,
 } from "react-icons/fa";
 
 const Sidebar = ({ children }) => {
@@ -40,6 +41,11 @@ const Sidebar = ({ children }) => {
       icon: <FaThList />,
     },
     {
+      path: "/items",
+      name: "Items",
+      icon: <FaAlignJustify />,
+    },
+    {
       path: "/report",
       name: "Admin Report",
       icon: <FaTable />,
@@ -49,8 +55,6 @@ const Sidebar = ({ children }) => {
   const handleLogut = () => {
     dispatch(logoutUser());
   };
-
-  //console.log(user.data.role);
 
   return (
     <div className="sidebar-container">

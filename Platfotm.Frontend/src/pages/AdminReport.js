@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adminReport, reset } from "../features/students/studentsSlice";
 
+import "../assets/styles/table.css";
+
 const AdminReport = () => {
   const dispatch = useDispatch();
 
@@ -13,7 +15,7 @@ const AdminReport = () => {
     dispatch(reset());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(report);
+
   return (
     <div>
       <h1>Admin Report</h1>
@@ -22,15 +24,25 @@ const AdminReport = () => {
       </div>
       <div>
         <h2>Selections Success Rate</h2>
-        <div>
-          {report?.data?.selectionSuccessesRate.map((sel) => {
-            return (
-              <h3 key={sel.id}>
-                {sel.selectionTitle} : {sel.successRate} %
-              </h3>
-            );
-          })}
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Selection</th>
+              <th>Success Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {report?.data?.selectionSuccessesRate.map((sel) => {
+              return (
+                <tr key={sel.id}>
+                  <td>{sel.selectionTitle}</td>
+                  <td>{sel.successRate} %</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div></div>
       </div>
     </div>
   );

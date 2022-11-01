@@ -31,3 +31,8 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.items-form {
+  display: flex;
+  justify-content: space-between;
+}

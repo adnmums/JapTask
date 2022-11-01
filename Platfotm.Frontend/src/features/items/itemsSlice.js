@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  selections: null,
+  items: null,
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -10,8 +10,8 @@ const initialState = {
   message: "",
 };
 
-export const getSelections = createAsyncThunk(
-  "selections/get",
+export const getItems = createAsyncThunk(
+  "items/get",
   async (data, thunkAPI) => {
     try {
       const response = await axios.get(data.api, {
@@ -32,18 +32,15 @@ export const getSelections = createAsyncThunk(
   }
 );
 
-export const addStudent = createAsyncThunk(
-  "selections/addstudent",
-  async (selection, thunkAPI) => {
+export const addItems = createAsyncThunk(
+  "items/add",
+  async (data, thunkAPI) => {
     try {
-      const headers = {
-        Authorization: `bearer ${selection.token}`,
-      };
-      const response = await axios.put(
-        `/api/selections/addstudent?selectionId=${selection.selectionId}&studentId=${selection.studentId}&programId=${selection.programId}`,
-        selection,
-        { headers }
-      );
+      const response = await axios.post("/api/items", data.item, {
+        headers: {
+          Authorization: `bearer ${data.token}`,
+        },
+      });
       return response.data;
     } catch (error) {
       const message =
@@ -57,8 +54,8 @@ export const addStudent = createAsyncThunk(
   }
 );
 
-export const selectionsSlice = createSlice({
-  name: "selections",
+export const itemsSlice = createSlice({
+  name: "items",
   initialState,
   reducers: {
     reset: (state) => {
@@ -71,29 +68,29 @@ export const selectionsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getSelections.rejected, (state, action) => {
+      .addCase(getItems.rejected, (state, action) => {
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getSelections.pending, (state) => {
+      .addCase(getItems.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getSelections.fulfilled, (state, action) => {
+      .addCase(getItems.fulfilled, (state, action) => {
         state.isSuccess = true;
-        state.selections = action.payload;
+        state.items = action.payload;
       })
-      .addCase(addStudent.rejected, (state, action) => {
+      .addCase(addItems.rejected, (state, action) => {
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(addStudent.pending, (state) => {
+      .addCase(addItems.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addStudent.fulfilled, (state) => {
+      .addCase(addItems.fulfilled, (state) => {
         state.isCreated = true;
       });
   },
 });
 
-export const { reset } = selectionsSlice.actions;
-export default selectionsSlice.reducer;
+export const { reset } = itemsSlice.actions;
+export default itemsSlice.reducer;
