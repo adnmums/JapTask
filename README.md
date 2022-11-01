@@ -17,7 +17,7 @@ This is my solution to the first JAP task.
   - ordering
   - ordering
   - filtering
-  - pagination (4 users per page)
+  - pagination 
 - Students can login and view their informations
 - Students can see lectures and events for their selection
 - Students and Admin can logout
